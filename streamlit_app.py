@@ -34,8 +34,8 @@ menu = ["Home","Custom_Settings","About"]
 choice = st.sidebar.selectbox("Menu",menu)
 
 	# Home
-	if choice == "Home":
-		st.subheader("Home Page")
+if choice == "Home":
+	st.subheader("Home Page")
 
 		# st.info("Without Session State")
 		# counter_without_state = 0
