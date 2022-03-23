@@ -3,6 +3,12 @@ import streamlit as st
 import streamlit.components.v1 as stc 
 import os 
 
+def main():
+	"""Deploying Streamlit App for Lip Sync"""
+
+	st.title("Lip Sync Model")
+	st.header("Wav2Lip")
+
 # HTML
 
 HTML_BANNER = """
@@ -12,11 +18,6 @@ HTML_BANNER = """
     </div>
     """
 
-def main():
-	"""Deploying Streamlit App for Lip Sync"""
-
-	st.title("Lip Sync Model")
-	st.header("Wav2Lip")
 
 
 name = st.text_input("Input the message","Type Here")
