@@ -1,53 +1,121 @@
-# Load Pkgs
-import streamlit as st 
-import matplotlib.pyplot as plt
-import os
+# Core Pkgs
+import streamlit as st
+import streamlit.components.v1 as stc 
 
 
-st.subheader("Frequently Asked Questions About Streamlit")
+# HTML
 
-## How to Show Help and Docs
-st.subheader("How to Show Help and Docs?")
-# Method 1
-st.help(st)
+HTML_BANNER = """
+    <div style="background-color:#464e5f;padding:10px;border-radius:10px;font-size:{}px">
+    <h1 style="color:white;text-align:center;">Streamlit is Awesome </h1>
+    <h1 style="color:white;text-align:center;">Session State is Here!! </h1>
+    </div>
+    """
 
-# Method 2
-result = dir(st)
-st.write(result)
-
-## How to Link to Pages
-st.subheader("How to Link to Pages?")
-# Using Markdown
-st.markdown("[I'm an inline-style link](https://www.google.com)")
+def main():
+	st.title("Session States")
 
 
-## How to Show Pie Charts
-st.subheader("How to Show Pie Charts")
-if st.checkbox("Show Pie Charts"):
-	labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
-	sizes = [15, 30, 45, 10]
-	explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+	menu = ["Home","Custom_Settings","About"]
+	choice = st.sidebar.selectbox("Menu",menu)
 
-	fig1, ax1 = plt.subplots()
-	ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-	        shadow=True, startangle=90)
-	ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+	# Home
+	if choice == "Home":
+		st.subheader("Home Page")
 
-	st.pyplot()
+		# st.info("Without Session State")
+		# counter_without_state = 0
+		# st.write("Initial Value",counter_without_state)
 
-## How to Receive User Input
-st.subheader("How to Receive User Input")
-name = st.text_input("Enter Your Name","Type Here")
-result_name = name.title()
-st.write(result_name)
+		# increment = st.button("Increment Without State")
+		# if increment:
+		# 	counter_without_state += 1
 
-## How to do Upload of Files
-# Solution By Adrien Treuile @streamlit
-#NB New Updates may include this feature request
-def file_selector(folder_path='.'):
-	    filenames = os.listdir(folder_path)
-	    selected_filename = st.selectbox('Select a file', filenames)
-	    return os.path.join(folder_path, selected_filename)
+		# st.write("Counts[without session state]",counter_without_state)
 
-filename = file_selector()
-st.write('You selected `%s`' % filename)
+		# Check Session State
+		st.write(st.session_state)
+
+		# With Session State
+		st.info("With Session State")
+		# Define Variable and Initialize State
+		if 'counter_one' not in st.session_state:
+			# Attrib
+			st.session_state.counter_one = 0
+
+			# # Key
+			# st.session_state['counter_one'] = 0
+
+		# increment = st.button("Increment By One")
+
+
+		# # Function
+		# if increment:
+		# 	st.session_state.counter_one +=1
+
+
+		# # Results of update
+		# st.write("Counts[with session state]",st.session_state.counter_one)
+
+
+		col1,col2 = st.beta_columns(2)
+		with col1:
+			increment = st.button("Increment By One")
+			# Function
+			if increment:
+				st.session_state.counter_one +=1
+
+		with col2:
+			decrement = st.button("Decrement By One")
+			if decrement:
+				st.session_state.counter_one -=1
+
+		# # Results of update
+		st.write("Counts[with session state]",st.session_state.counter_one)
+
+
+
+
+
+	elif choice == "Custom_Settings":
+		st.subheader("App Custom_Settings")
+
+		# Define and Initialize State
+		if 'fontsize' not in st.session_state:
+			st.session_state['fontsize'] = 12
+
+
+		f1,f2 = st.beta_columns(2)
+
+		with f1:
+			# Create a button for fxn/cb fxn
+			font_increment = st.button('Increase Font')
+			if font_increment:
+				st.session_state['fontsize'] += 5
+
+
+		with f2:
+			# Create a button for fxn/cb fxn
+			font_decrement = st.button('Decrease Font')
+			if font_decrement:
+				st.session_state['fontsize'] -= 5	
+
+
+		# Results
+		st.write("Current Font Size",st.session_state.fontsize)
+		stc.html(HTML_BANNER.format(st.session_state.fontsize))
+
+
+
+
+
+	else:
+		st.subheader("About")
+		st.info("Built with Streamlit")
+		st.success("Jesus Saves @JCharisTech")
+		st.text("By Jesse E.Agbe(JCharis)")
+
+
+
+if __name__ == '__main__':
+	main()
