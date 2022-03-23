@@ -6,15 +6,13 @@ def main():
 	st.title("Lip Sync Model")
 	st.header("Wav2Lip")
 
-	st.title("Updated Version")
 
-
-	activities = ["EDA","Plots"]
+	activities = ["Home","Plots"]
 
 	choices = st.sidebar.selectbox('Select Activities',activities)
 
-	if choices == 'EDA':
-		st.subheader("EDA")
+	if choices == 'Home':
+		st.subheader("Home")
 
 	elif choices == 'Plots':
 		st.subheader("Visualization")
