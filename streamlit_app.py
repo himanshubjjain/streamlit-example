@@ -48,14 +48,14 @@ if choice == "Home":
 		# st.write("Counts[without session state]",counter_without_state)
 
 		# Check Session State
-		st.write(st.session_state)
+	st.write(st.session_state)
 
 		# With Session State
-		st.info("With Session State")
+	st.info("With Session State")
 		# Define Variable and Initialize State
-		if 'counter_one' not in st.session_state:
+	if 'counter_one' not in st.session_state:
 			# Attrib
-			st.session_state.counter_one = 0
+		st.session_state.counter_one = 0
 
 			# # Key
 			# st.session_state['counter_one'] = 0
@@ -72,12 +72,12 @@ if choice == "Home":
 		# st.write("Counts[with session state]",st.session_state.counter_one)
 
 
-		col1,col2 = st.beta_columns(2)
-		with col1:
-			increment = st.button("Increment By One")
+	col1,col2 = st.beta_columns(2)
+	with col1:
+		increment = st.button("Increment By One")
 			# Function
-			if increment:
-				st.session_state.counter_one +=1
+		if increment:
+			st.session_state.counter_one +=1
 
 		with col2:
 			decrement = st.button("Decrement By One")
