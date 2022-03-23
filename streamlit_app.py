@@ -9,7 +9,7 @@ st.set_page_config(
      initial_sidebar_state="expanded",
 
 
- name = st.text_input("Input the message","Type Here")
- result_name = name.title()
- st.write(result_name)
+name = st.text_input("Input the message","Type Here")
+result_name = name.title()
+st.write(result_name)
 )
