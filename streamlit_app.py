@@ -1,15 +1,26 @@
-# Core Pkgs
-import streamlit as st
-import streamlit.components.v1 as stc 
-import os 
+import streamlit as st 
 
-st.set_page_config(
-     page_title='Streamlit cheat sheet',
-     layout="wide",
-     initial_sidebar_state="expanded",
-)
+def main():
+	"""Deploying Streamlit App for Lip Sync"""
+
+	st.title("Lip Sync Model")
+	st.header("Wav2Lip")
+
+	st.title("Updated Version")
 
 
-name = st.text_input("Input the message","Type Here")
-result_name = name.title()
-st.write(result_name)
+	activities = ["EDA","Plots"]
+
+	choices = st.sidebar.selectbox('Select Activities',activities)
+
+	if choices == 'EDA':
+		st.subheader("EDA")
+
+	elif choices == 'Plots':
+		st.subheader("Visualization")
+
+
+
+
+if __name__ == '__main__':
+	main()
