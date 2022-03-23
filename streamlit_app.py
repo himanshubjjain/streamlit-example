@@ -15,8 +15,7 @@ HTML_BANNER = """
 def main():
 	st.title("Lip Sync")
 
-st.subheader("How to Receive User Input")
-name = st.text_input("Enter Your Name","Type Here")
+name = st.text_input("Input the message","Type Here")
 result_name = name.title()
 st.write(result_name)
 
