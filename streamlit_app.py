@@ -13,21 +13,13 @@ HTML_BANNER = """
     """
 
 def main():
-	st.title("Lip Sync")
+	"""Deploying Streamlit App for Lip Sync"""
+
+	st.title("Lip Sync Model")
+	st.header("Wav2Lip")
+
 
 name = st.text_input("Input the message","Type Here")
 result_name = name.title()
 st.write(result_name)
 
-## How to do Upload of Files
-# Solution By Adrien Treuile @streamlit
-#NB New Updates may include this feature request
-def file_selector(folder_path='.'):
-	filenames = os.listdir(folder_path)
-	selected_filename = st.selectbox('Select a file', filenames)
-	return os.path.join(folder_path, selected_filename)
-
-filename = file_selector()
-st.write('You selected `%s`' % filename)
-menu = ["Home","Custom_Settings","About"]
-choice = st.sidebar.selectbox("Menu",menu)
