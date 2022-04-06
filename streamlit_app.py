@@ -42,7 +42,7 @@ def main():
 			st.write(file_details)
 
 			img = load_image(image_file)
-			st.image(img,width=250,height=250)
+			st.image(img,width=720,height=720)
 
 
 
