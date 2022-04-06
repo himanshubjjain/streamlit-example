@@ -48,7 +48,7 @@ conn = sqlite3.connect('emails_data.db')
 def main():
 	st.title("Lip Sync")
 
-	menu = "[Home","Single Extractor","Bulk Extractor","DataStorage","Image","Audio","Output"]
+	menu = "[Home","Single Extractor","Bulk Extractor","DataStorage","Image","Audio","About"]
 	choice = st.sidebar.selectbox("Menu",menu)
 
     if choice == "Home":
@@ -174,9 +174,7 @@ def main():
 
 	else:
 		st.subheader("About")
-		st.info("Built with Streamlit")
-		st.info("Jesus Saves @JCharisTech")
-		st.text("Jesse E.Agbe(JCharis)")
+		
 
 
 
