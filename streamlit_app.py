@@ -31,8 +31,7 @@ def main():
 
 			img = load_image(image_file)
 			st.image(img)
-if __name__ == '__main__':
-	main()			
+		
 
 
 	elif choice == "Audio":
@@ -45,3 +44,6 @@ if __name__ == '__main__':
 
 				audio_bytes = audio_file.read(audio_file)
 				st.audio(audio_bytes,format='audio/wav')
+				
+if __name__ == '__main__':
+	main()					
