@@ -1,6 +1,8 @@
-import streamlit as st
-import streamlit.components.v1 as stc
-import time
+# Core Pkgs
+import streamlit as st 
+import streamlit.components.v1 as stc 
+
+# EDA Pkgs
 import pandas as pd 
 import neattext.functions as nfx 
 
@@ -9,9 +11,7 @@ import base64
 import time 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 import requests
-# File Processing Pkgs
 
-from PIL import Image 
 # Fxn to Download
 def make_downloadable(data,task_type):
     csvfile = data.to_csv(index=False)
@@ -38,20 +38,49 @@ def fetch_query(query):
 	r = requests.get(base_url)
 	return r.text 
 
-def load_image(image_file):
-	img = Image.open(image_file)
-	return img 
 
+# Beautification
+
+custom_title = """
+<div style="font-size:60px;font-weight:bolder;background-color:#fff;padding:10px;
+border-radius:10px;border:5px solid #464e5f;text-align:center;">
+		<span style='color:blue'>E</span>
+		<span style='color:black'>m</span>
+		<span style='color:red'>a</span>
+		<span style='color:green'>i</span>
+		<span style='color:purple'>l</span>
+
+		<span style='color:blue'>E</span>
+		<span style='color:red'>x</span>
+		<span style='color:yellow'>t</span>
+		<span style='color:#464e5f'>r</span>
+		<span style='color:red'>a</span>
+		<span style='color:green'>c</span>
+		<span style='color:yellow'>t</span>
+		<span style='color:black'>o</span>
+		<span style='color:blue'>r</span>
+
+</div>
+"""
+
+# DB Management
 import sqlite3
 conn = sqlite3.connect('emails_data.db')
 
-def main():
-	st.title("Lip Sync")
 
-	menu = ["Home","Single Extractor","Bulk Extractor","DataStorage","Image","Audio","About"]
+def main():
+	"""Email Extraction Streamlit App"""
+	st.title("Email Extractor App")
+	# custom_banner  = """<div>
+	# <span style="color:red;font-size:30px">E</span>
+	# <span style="color:blue;font-size:30px">M</span>
+	# """
+	stc.html(custom_title)
+
+	menu = ["Home","Single Extractor","Bulk Extractor","DataStorage","About"]
 	choice = st.sidebar.selectbox("Menu",menu)
 
-    if choice == "Home":
+	if choice == "Home":
 		st.subheader("Search & Extract")
 		countries_list = ["Afghanistan","Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Austrian Empire", "Azerbaijan", "Baden*", "Bahamas, The", "Bahrain", "Bangladesh", "Barbados", "Bavaria*", "Belarus", "Belgium", "Belize", "Benin (Dahomey)", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Brunswick and Lüneburg", "Bulgaria", "Burkina Faso (Upper Volta)", "Burma", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Cayman Islands, The", "Central African Republic", "Central American Federation*", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo Free State, The", "Costa Rica", "Cote d’Ivoire (Ivory Coast)", "Croatia", "Cuba", "Cyprus", "Czechia", "Czechoslovakia", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Duchy of Parma, The*", "East Germany (German Democratic Republic)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Federal Government of Germany (1848-49)*", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Grand Duchy of Tuscany, The*", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Hanover*", "Hanseatic Republics*", "Hawaii*", "Hesse*", "Holy See", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kingdom of Serbia/Yugoslavia*", "Kiribati", "Korea", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Lew Chew (Loochoo)*", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mecklenburg-Schwerin*", "Mecklenburg-Strelitz*", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Namibia", "Nassau*", "Nauru", "Nepal", "Netherlands, The", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North German Confederation*", "North German Union*", "North Macedonia", "Norway", "Oldenburg*", "Oman", "Orange Free State*", "Pakistan", "Palau", "Panama", "Papal States*", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Piedmont-Sardinia*", "Poland", "Portugal", "Qatar", "Republic of Genoa*", "Republic of Korea (South Korea)", "Republic of the Congo", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Schaumburg-Lippe*", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands, The", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Texas*", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Two Sicilies*", "Uganda", "Ukraine", "Union of Soviet Socialist Republics*", "United Arab Emirates, The", "United Kingdom, The", "Uruguay", "Uzbekistan", "USA","UK", "Vanuatu", "Venezuela", "Vietnam", "Württemberg*", "Yemen", "Zambia", "Zimbabwe"]
 		email_extensions_list = ["gmail.com", "yahoo.com", "hotmail.com", "aol.com", "hotmail.co.uk", "hotmail.fr", "msn.com", "yahoo.fr", "wanadoo.fr", "orange.fr", "comcast.net", "yahoo.co.uk", "yahoo.com.br", "yahoo.co.in", "live.com", "rediffmail.com", "free.fr", "gmx.de", "web.de", "yandex.ru", "ymail.com", "libero.it", "outlook.com", "uol.com.br", "bol.com.br", "mail.ru", "cox.net", "hotmail.it", "sbcglobal.net", "sfr.fr", "live.fr", "verizon.net", "live.co.uk", "googlemail.com", "yahoo.es", "ig.com.br", "live.nl", "bigpond.com", "terra.com.br", "yahoo.it", "neuf.fr", "yahoo.de", "alice.it", "rocketmail.com", "att.net", "laposte.net", "facebook.com", "bellsouth.net", "yahoo.in", "hotmail.es", "charter.net", "yahoo.ca", "yahoo.com.au", "rambler.ru", "hotmail.de", "tiscali.it", "shaw.ca", "yahoo.co.jp", "sky.com", "earthlink.net", "optonline.net", "freenet.de", "t-online.de", "aliceadsl.fr", "virgilio.it", "home.nl", "qq.com", "telenet.be", "me.com", "yahoo.com.ar", "tiscali.co.uk", "yahoo.com.mx", "voila.fr", "gmx.net", "mail.com", "planet.nl", "tin.it", "live.it", "ntlworld.com", "arcor.de", "yahoo.co.id", "frontiernet.net", "hetnet.nl", "live.com.au", "yahoo.com.sg", "zonnet.nl", "club-internet.fr", "juno.com", "optusnet.com.au", "blueyonder.co.uk", "bluewin.ch", "skynet.be", "sympatico.ca", "windstream.net", "mac.com", "centurytel.net", "chello.nl", "live.ca", "aim.com", "bigpond.net.au"] 
@@ -91,10 +120,10 @@ def main():
 					make_downloadable_df(result_df)
 
 	elif choice == "Single Extractor":
-	    st.subheader("Extract A Single Term")
-        text = st.text_area("Paste Text Here")
+		st.subheader("Extract A Single Term")
+		text = st.text_area("Paste Text Here")
 		task_option = st.sidebar.selectbox("Task",["Emails","URLS","Phonenumbers"])
-	    if st.button("Extract"):
+		if st.button("Extract"):
 			
 			if task_option == "URLS":
 				results = nfx.extract_urls(text)
@@ -142,41 +171,8 @@ def main():
 			st.dataframe(new_df)
 
 
-
-	elif choice == "Image":
-		st.subheader("Image")
-		image_file = st.file_uploader("Upload Image",type=['png','jpeg','jpg'])
-		if image_file is not None:
-		
-			# To See Details
-			# st.write(type(image_file))
-			# st.write(dir(image_file))
-			file_details = {"Filename":image_file.name,"FileType":image_file.type,"FileSize":image_file.size}
-			st.write(file_details)
-
-			img = load_image(image_file)
-			st.image(img)
-
-
-	elif choice == "Audio":
-		st.subheader("Audio")
-		audio_file = st.file_uploader("Upload Audio",type=['wav'])
-		if st.button("Process"):
-			if audio_file is not None:
-				file_details = {"Filename":audio_file.name,"FileType":audio_file.type,"FileSize":audio_file.size}
-				st.write(file_details)
-
-				audio_bytes = audio_file.read()
-                
-                
-
-	
-
 	else:
 		st.subheader("About")
-		
-
-
 
 if __name__ == '__main__':
-	main()
+		main()	
