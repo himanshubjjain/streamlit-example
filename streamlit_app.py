@@ -48,7 +48,7 @@ conn = sqlite3.connect('emails_data.db')
 def main():
 	st.title("Lip Sync")
 
-	menu = "[Home","Single Extractor","Bulk Extractor","DataStorage","Image","Audio","About"]
+	menu = "[Home","Single Extractor","Bulk Extractor","DataStorage","Image","Audio"]
 	choice = st.sidebar.selectbox("Menu",menu)
 
     if choice == "Home":
