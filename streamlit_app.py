@@ -31,6 +31,8 @@ def main():
 
 			img = load_image(image_file)
 			st.image(img)
+if __name__ == '__main__':
+	main()			
 
 
 	elif choice == "Audio":
