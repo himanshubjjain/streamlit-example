@@ -43,7 +43,7 @@ def main():
 				st.write(file_details)
 
 				audio_file = open('audio_file', 'rb')
-                		st.audio(audio_file, format='audio/mp3')
+                		st.audio(audio_file)
 				
 if __name__ == '__main__':
 	main()					
