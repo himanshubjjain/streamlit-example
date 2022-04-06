@@ -44,7 +44,7 @@ def main():
 			img = load_image(image_file)
 			st.image(img)
 			
-   elif choice == "Audio":
+  	 elif choice == "Audio":
 		st.subheader("Audio")
 		audio_file = st.file_uploader("Upload Audio",type=['wav'])
 		if st.button("Process"):
