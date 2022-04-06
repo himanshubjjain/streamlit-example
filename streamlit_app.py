@@ -36,14 +36,14 @@ def main():
 
 	elif choice == "Audio":
 		st.subheader("Audio")
-		audio_file = st.file_uploader("Upload Audio",type=['wav'])
+		audio_file = st.file_uploader("Upload Audio",type=['wav','mp3','aac'])
 		if st.button("Process"):
 			if audio_file is not None:
 				file_details = {"Filename":audio_file.name,"FileType":audio_file.type,"FileSize":audio_file.size}
 				st.write(file_details)
 
 				audio_bytes = audio_file.read(audio_file)
-				st.audio(audio_bytes,format='audio/wav')
+				st.audio(audio_bytes)
 				
 if __name__ == '__main__':
 	main()					
