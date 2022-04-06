@@ -42,8 +42,8 @@ def main():
 				file_details = {"Filename":audio_file.name,"FileType":audio_file.type,"FileSize":audio_file.size}
 				st.write(file_details)
 
-				audio_file = open('audio_file', 'rb')
-                		st.audio(audio_file)
+				audio_bytes= audio_file.read()
+				st.audio(audio_bytes)
 				
 if __name__ == '__main__':
 	main()					
