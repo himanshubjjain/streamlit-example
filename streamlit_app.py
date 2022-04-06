@@ -25,7 +25,7 @@ def load_image(image_file):
 
 
 def main():
-	st.title("File Upload Tutorial")
+	st.title("Lip Sync")
 
 	menu = ["Home"]
 	choice = st.sidebar.selectbox("Menu",menu)
