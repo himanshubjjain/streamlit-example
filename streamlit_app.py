@@ -27,11 +27,11 @@ def load_image(image_file):
 def main():
 	st.title("Lip Sync")
 
-	menu = ["Home"]
+	menu = ["Image","Audio","Output"]
 	choice = st.sidebar.selectbox("Menu",menu)
 
-	if choice == "Home":
-		st.subheader("Home")
+	if choice == "Image":
+		st.subheader("Image")
 		image_file = st.file_uploader("Upload Image",type=['png','jpeg','jpg'])
 		if image_file is not None:
 		
@@ -43,6 +43,17 @@ def main():
 
 			img = load_image(image_file)
 			st.image(img)
+			
+   elif choice == "Audio":
+		st.subheader("Audio")
+		audio_file = st.file_uploader("Upload Audio",type=['wav'])
+		if st.button("Process"):
+			if audio_file is not None:
+				file_details = {"Filename":data_file.name,"FileType":data_file.type,"FileSize":data_file.size}
+				st.write(file_details)
+
+				audio_bytes=audio_file.read()
+				st.audio(audio_bytes,format='audio/wav')
 
 
 
