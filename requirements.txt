@@ -7,3 +7,7 @@ torchvision==0.3.0
 tqdm==4.45.0
 numba==0.48
 altair
+dotted_name
+cv2
+scipy
+os
